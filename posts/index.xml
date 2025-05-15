@@ -15,12 +15,5 @@
       <guid>http://myname7om.github.io/posts/makingthesite/</guid>
       <description>&lt;p&gt;After many failed job applications, I have decided the best case of action is to create a website. Both to showcase my personal projects, and to distract me from reflecting over the number of applications I am yet to hear back from.&lt;/p&gt;&#xA;&lt;h1 id=&#34;what-i-used&#34;&gt;&#xA;  What I used&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#what-i-used&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;p&gt;To create the site I used Hugo, GitHub (for GitHub Pages) and I used the theme hugo-coder*. I am editing the mark down files using Neovim, I have recently discovered Neovim and I am using the creation and maintenance of the website and future projects to get acquainted with the vim motions.&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>First Post</title>
-      <link>http://myname7om.github.io/posts/firstpost/</link>
-      <pubDate>Wed, 14 May 2025 22:20:22 +0100</pubDate>
-      <guid>http://myname7om.github.io/posts/firstpost/</guid>
-      <description>&lt;p&gt;Hello, this is my first post.&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>
