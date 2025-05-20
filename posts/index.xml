@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Thomas Allan</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 May 2025 11:57:24 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 20 May 2025 10:39:01 +0100</lastBuildDate>
     <atom:link href="http://myname7om.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating a Home Server Using a RaspberryPi and Docker</title>
+      <link>http://myname7om.github.io/posts/raspberrypi-home-server/</link>
+      <pubDate>Tue, 20 May 2025 10:39:01 +0100</pubDate>
+      <guid>http://myname7om.github.io/posts/raspberrypi-home-server/</guid>
+      <description>&lt;p&gt;The use of my RaspberryPi was discussed in the previous post, however I changed how I am using it. After countless YouTube videos, I decided to use Docker instead of ProxMox, there are reasons for this change, however the main reason was I have never used Docker but I have had some experience with a level 1 hypervisor.&lt;/p&gt;&#xA;&lt;h3 id=&#34;overview&#34;&gt;&#xA;  Overview&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#overview&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RaspberryPi 4 8GB memory&lt;/li&gt;&#xA;&lt;li&gt;For the Docker containers I have implemented at this moment:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; PiHole: DNS blocker, used for an add blocker.&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Portainer: Used for the web GUI for managing Docker.&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Plex: Locally hosted version of Netflix.&lt;/li&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Ubuntu: Virtual Ubuntu Linux machine, this is similar to just SSHing into my Pi but it is easier to delete the container and start again if I mess up.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;The Docker containers I would like to implement next:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Gitlab&lt;/li&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Blog, slef-hosted&lt;/li&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Hashicorp&lt;/li&gt;&#xA;&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Tor IRC, through either a designated IRC container or through an Ubuntu container&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; This is just the start, I plan on continuously growing the server and adding more and more containers to make it more interesting and potentionally more usefull!&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Making This Website</title>
       <link>http://myname7om.github.io/posts/makingthesite/</link>

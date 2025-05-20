@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Creating a Home Server Using a RaspberryPi and Docker · Thomas Allan
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Thomas Allan">
+<meta name="description" content="The use of my RaspberryPi was discussed in the previous post, however I changed how I am using it. After countless YouTube videos, I decided to use Docker instead of ProxMox, there are reasons for this change, however the main reason was I have never used Docker but I have had some experience with a level 1 hypervisor.
+
+  Overview
+  
+    
+    Link to heading
+  
+
+
+RaspberryPi 4 8GB memory
+For the Docker containers I have implemented at this moment:
+
+ PiHole: DNS blocker, used for an add blocker.
+ Portainer: Used for the web GUI for managing Docker.
+ Plex: Locally hosted version of Netflix.
+ Ubuntu: Virtual Ubuntu Linux machine, this is similar to just SSHing into my Pi but it is easier to delete the container and start again if I mess up.
+
+
+The Docker containers I would like to implement next:
+
+ Gitlab
+ Blog, slef-hosted
+ Hashicorp
+ Tor IRC, through either a designated IRC container or through an Ubuntu container
+
+
+
+
+Note This is just the start, I plan on continuously growing the server and adding more and more containers to make it more interesting and potentionally more usefull!">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating a Home Server Using a RaspberryPi and Docker">
+  <meta name="twitter:description" content="The use of my RaspberryPi was discussed in the previous post, however I changed how I am using it. After countless YouTube videos, I decided to use Docker instead of ProxMox, there are reasons for this change, however the main reason was I have never used Docker but I have had some experience with a level 1 hypervisor.
+Overview Link to heading RaspberryPi 4 8GB memory For the Docker containers I have implemented at this moment: PiHole: DNS blocker, used for an add blocker. Portainer: Used for the web GUI for managing Docker. Plex: Locally hosted version of Netflix. Ubuntu: Virtual Ubuntu Linux machine, this is similar to just SSHing into my Pi but it is easier to delete the container and start again if I mess up. The Docker containers I would like to implement next: Gitlab Blog, slef-hosted Hashicorp Tor IRC, through either a designated IRC container or through an Ubuntu container Note This is just the start, I plan on continuously growing the server and adding more and more containers to make it more interesting and potentionally more usefull!">
+
+<meta property="og:url" content="http://myname7om.github.io/posts/raspberrypi-home-server/">
+  <meta property="og:site_name" content="Thomas Allan">
+  <meta property="og:title" content="Creating a Home Server Using a RaspberryPi and Docker">
+  <meta property="og:description" content="The use of my RaspberryPi was discussed in the previous post, however I changed how I am using it. After countless YouTube videos, I decided to use Docker instead of ProxMox, there are reasons for this change, however the main reason was I have never used Docker but I have had some experience with a level 1 hypervisor.
+Overview Link to heading RaspberryPi 4 8GB memory For the Docker containers I have implemented at this moment: PiHole: DNS blocker, used for an add blocker. Portainer: Used for the web GUI for managing Docker. Plex: Locally hosted version of Netflix. Ubuntu: Virtual Ubuntu Linux machine, this is similar to just SSHing into my Pi but it is easier to delete the container and start again if I mess up. The Docker containers I would like to implement next: Gitlab Blog, slef-hosted Hashicorp Tor IRC, through either a designated IRC container or through an Ubuntu container Note This is just the start, I plan on continuously growing the server and adding more and more containers to make it more interesting and potentionally more usefull!">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-20T10:39:01+01:00">
+    <meta property="article:modified_time" content="2025-05-20T10:39:01+01:00">
+
+
+
+
+<link rel="canonical" href="http://myname7om.github.io/posts/raspberrypi-home-server/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.7763f8bc6341ecf82378e867c285e1549abb063a899be313ccd25dbfcd24fa7d.css" integrity="sha256-d2P4vGNB7PgjeOhnwoXhVJq7BjqJm&#43;MTzNJdv80k&#43;n0=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://myname7om.github.io/">
+      Thomas Allan
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://myname7om.github.io/posts/raspberrypi-home-server/">
+              Creating a Home Server Using a RaspberryPi and Docker
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-05-20T10:39:01&#43;01:00">
+                May 20, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>The use of my RaspberryPi was discussed in the previous post, however I changed how I am using it. After countless YouTube videos, I decided to use Docker instead of ProxMox, there are reasons for this change, however the main reason was I have never used Docker but I have had some experience with a level 1 hypervisor.</p>
+<h3 id="overview">
+  Overview
+  <a class="heading-link" href="#overview">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>RaspberryPi 4 8GB memory</li>
+<li>For the Docker containers I have implemented at this moment:
+<ul>
+<li><input checked="" disabled="" type="checkbox"> PiHole: DNS blocker, used for an add blocker.</li>
+<li><input checked="" disabled="" type="checkbox"> Portainer: Used for the web GUI for managing Docker.</li>
+<li><input checked="" disabled="" type="checkbox"> Plex: Locally hosted version of Netflix.</li>
+<li><input checked="" disabled="" type="checkbox"> Ubuntu: Virtual Ubuntu Linux machine, this is similar to just SSHing into my Pi but it is easier to delete the container and start again if I mess up.</li>
+</ul>
+</li>
+<li>The Docker containers I would like to implement next:
+<ul>
+<li><input disabled="" type="checkbox"> Gitlab</li>
+<li><input disabled="" type="checkbox"> Blog, slef-hosted</li>
+<li><input disabled="" type="checkbox"> Hashicorp</li>
+<li><input disabled="" type="checkbox"> Tor IRC, through either a designated IRC container or through an Ubuntu container</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong> This is just the start, I plan on continuously growing the server and adding more and more containers to make it more interesting and potentionally more usefull!</p></blockquote>
+<h2 id="what-i-found">
+  What I found
+  <a class="heading-link" href="#what-i-found">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Docker has been really fun to play with so far, I was surprised how easy it was to use. I installed containers in multiple ways, through creating <code>.sh</code> files, creating <code>yaml</code> compose files and through Portainer (all GUI). However, I have ran into a problem, recently I have been looking into using Kubenetes and I might need to restart this project using Kubetes alongside Docker. This is the only issue I have come across, as for every other thing I am wanting to try I can create a container in Docker to do it. Installing and using Kubenetes would mean starting this project all over again!</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+     
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
